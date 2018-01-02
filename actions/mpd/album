@@ -1,0 +1,5 @@
+#!/bin/bash
+
+touch "/tmp/$1"
+
+mpc search album "$1" | mpc add ; mpc play

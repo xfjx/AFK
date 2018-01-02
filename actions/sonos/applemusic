@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl http://localhost:5000/Kinderzimmer/applemusic/now/$1
