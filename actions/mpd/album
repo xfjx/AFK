@@ -1,5 +1,9 @@
 #!/bin/bash
 
-touch "/tmp/$1"
+echo "Playing album: $1"
 
-mpc search album "$1" | mpc add ; mpc play
+mpc clear
+mpc repeat off
+mpc single off
+
+mpc search album "$1" | mpc add; mpc play

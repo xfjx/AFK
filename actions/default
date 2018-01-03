@@ -6,6 +6,14 @@
 # sqlite3 uid.db "create table uids (uid TEXT PRIMARY KEY,action TEXT);"
 # sqlite3 uid.db "insert into uids (uid,action) values ('AA_BB_CC_DD','mpd/album:Wo  Wo ist Kartoffelbrei');"
 
-action=`sqlite3 ../uid.db "select action from uids"`
+sql=`sqlite3 uid.db "select action from uids where uid='$1'"`
 
-echo $action
+if [ -z "$sql" ]; then
+    echo "New card detected!"
+    sqlite3 uid.db "insert into uids (uid) values ('$1')"
+else
+    action="$(echo "$sql" | cut -d':' -f1)"
+    parameter="$(echo "$sql" | cut -d':' -f2)"
+
+    ./actions/$action "$parameter"
+fi
